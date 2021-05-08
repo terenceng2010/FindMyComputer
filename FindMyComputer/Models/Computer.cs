@@ -46,6 +46,7 @@ namespace FindMyComputer.Models
         public string CPUBrand { get; set; }
 
         public List<Connector> Connectors { get; set; }
+        public int ConnectorCount { get; set; }
         //public int ConnectorCount {
         //    get {
         //        if (Connectors == null)

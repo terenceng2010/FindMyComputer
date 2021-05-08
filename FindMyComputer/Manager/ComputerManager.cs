@@ -179,6 +179,7 @@ namespace FindMyComputer.Manager
             c.HarddiskSize = ComputerManagerUtility.ReadHarddiskSize(harddiskText);
             c.HarddiskType = ComputerManagerUtility.ReadHarddiskType(harddiskText);
             c.Connectors = ComputerManagerUtility.ReadConnectivities(connectivityText);
+            c.ConnectorCount = c.Connectors.Select(conn => conn.Quantity).Sum();
             c.GraphicsCardModel = graphicsCardText.Trim();
             c.TowerWeight = ComputerManagerUtility.ReadWeight(weightText);
             c.PowerSupplyWatt = ComputerManagerUtility.ReadPowerSupplyWatt(powerSupplyWattText);
