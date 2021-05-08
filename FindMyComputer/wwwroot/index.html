@@ -1,19 +1,39 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+
     <title>Find My Next Computer</title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.21/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.21/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.21/dist/js/uikit-icons.min.js"></script>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/vue-router@4"></script>
     <script src="js/main.js" type="module"></script>
 </head>
 <body>
     <div id="app">
-        <p>
-            <router-link to="/">Start Again</router-link>
-            <router-link to="/about">Show me all the computers</router-link>
-        </p>
-        <router-view></router-view>
+        <div class="uk-section">
+            <div class="uk-container">
+                <router-view v-slot="{ Component }">
+                    <transition name="fade"  mode="out-in">
+                        <component :is="Component" />
+                    </transition>
+                </router-view>
+            </div>
+        </div>
     </div>
 </body>
+<style>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
+</style>
 </html>

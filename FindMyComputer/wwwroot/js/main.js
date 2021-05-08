@@ -1,7 +1,7 @@
 ﻿// 1. Define route components.
 // These can be imported from other files
 import Home from './components/Home.js'
-const About = { template: '<div>About</div>' }
+const About = { template: '<div><router-link to="/">Start Over</router-link></div>' }
 
 // 2. Define some routes
 // Each route should map to a component.
