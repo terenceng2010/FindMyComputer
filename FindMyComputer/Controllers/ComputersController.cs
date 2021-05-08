@@ -25,7 +25,7 @@ namespace FindMyComputer.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Computer>>> GetComputer()
         {
-            return await _context.Computers.ToListAsync();
+            return await _context.Computers.Include(c => c.Connectors).ToListAsync();
         }
 
         // GET: api/Computers/5

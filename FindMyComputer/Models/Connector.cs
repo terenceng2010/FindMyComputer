@@ -2,6 +2,7 @@
 {
     public class Connector
     {
+        public int ConnectorId { get; set; }
         /// <summary>
         /// e.g USB 3.0
         /// </summary>
