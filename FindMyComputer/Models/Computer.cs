@@ -1,10 +1,19 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace FindMyComputer.Models
 {
+    [Index(nameof(Ram))]
+    [Index(nameof(HarddiskSize))]
+    [Index(nameof(HarddiskType))]
+    [Index(nameof(GraphicsCardModel))]
+    [Index(nameof(TowerWeight))]
+    [Index(nameof(PowerSupplyWatt))]
+    [Index(nameof(CPUModel))]
+    [Index(nameof(CPUBrand))]
     public class Computer
     {
         public int ID { get; set; }
