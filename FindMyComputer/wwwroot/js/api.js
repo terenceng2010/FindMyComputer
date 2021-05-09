@@ -4,6 +4,11 @@
         this.baseUrl = baseUrl;
     }
 
+    async getComputerStat() {
+        const response = await fetch(this.baseUrl + 'api/Computers/stat')
+        return response.json();
+    }
+
     async getComputers() {
         const response = await fetch(this.baseUrl + 'api/Computers')
         return response.json();
@@ -14,7 +19,7 @@
         return response.json();
     }
 
-    async getComputerByFacetSearch(facetSearchObj) {
+    async getComputersByFacetSearch(facetSearchObj) {
         const response = await
             fetch(this.baseUrl + 'api/Computers/facetsearch', {
                 headers: {
@@ -26,4 +31,6 @@
             });
         return response.json();
     }
+
+
 }

@@ -15,6 +15,7 @@
 }
 export default {
     name: `ComputerFilterPanel`,
+    props: ['stat'],
     data() {
         return {
             form: {
@@ -36,6 +37,9 @@ export default {
     },
     methods:{
         resetSearch() {
+            this.$parent.api.getComputerStat().then(result => {
+                this.stat = result;
+            })
             this.form = Object.assign({}, formDefault);
         },
         search() {
@@ -45,7 +49,7 @@ export default {
                     if (this.form[key] === '') { this.form[key] = null; }
                 }
             })
-            this.$parent.api.getComputerByFacetSearch(this.form).then(result => {
+            this.$parent.api.getComputersByFacetSearch(this.form).then(result => {
                 this.$parent.computers = result;
             })
         },
@@ -59,33 +63,31 @@ export default {
             deep: true
         })
     },
-    mounted() {
-
-    },
     template: `
     <div class="uk-card uk-card-body">
         Filter:
         <form>
-        <p>Ram: <input v-model='form.minRam' type='number'/>~<input  v-model='form.maxRam' type='number'/>MB</p>
-        <p>Harddisk Size: <input v-model='form.minHarddiskSize' type='number'/>~<input v-model='form.maxHarddiskSize' type='number'/>GB</p>
+        <p>Ram: {{stat.minRam}}~{{stat.maxRam}} <input v-model='form.minRam' type='number'/>~<input  v-model='form.maxRam' type='number'/>MB </p>
+        <p>Harddisk Size: {{stat.minHarddiskSize}}~{{stat.maxHarddiskSize}} <input v-model='form.minHarddiskSize' type='number'/>~<input v-model='form.maxHarddiskSize' type='number'/>GB</p>
         <p>Harddisk Type:
-            <label><input type='checkbox' value='SSD' v-model="form.harddiskTypes"/> SSD </label>
-            <label><input type='checkbox' value='SDD' v-model="form.harddiskTypes"/> SDD </label>
-            <label><input type='checkbox' value='HDD' v-model="form.harddiskTypes"/> HDD </label>
+            <label v-for='h in stat.harddiskTypes'>
+                <input type='checkbox' :value='h' v-model="form.harddiskTypes"/> {{h}}
+            </label>
         </p>        
         <p>Connectors:
-            <label><input type='checkbox' value='USB C' v-model="form.connectorNames"/> USB C        </label>
-            <label><input type='checkbox' value='USB 3.0' v-model="form.connectorNames"/> USB 3.0    </label>
-            <label><input type='checkbox' value='USB 2.0' v-model="form.connectorNames"/> USB 2.0    </label>
+            <label v-for='c in stat.connectorNames'>
+                <input type='checkbox' :value='c' v-model="form.connectorNames"/> {{c}}
+            </label>
         </p>
         <p>Graphics Card Model:
             <input v-model='form.graphicsCardModelKeyword'/>
         </p>
-        <p>Weight: <input v-model='form.minTowerWeight' type='number'/>~<input v-model='form.maxTowerWeight' type='number'/>KG</p>
-        <p>PSU Watt: <input v-model='form.minPowerSupplyWatt' type='number'/>~<input v-model='form.maxPowerSupplyWatt' type='number'/>W</p>
+        <p>Weight: {{stat.minTowerWeight}}~{{stat.maxTowerWeight}} <input v-model='form.minTowerWeight' type='number'/>~<input v-model='form.maxTowerWeight' type='number'/>KG</p>
+        <p>PSU Watt: {{stat.minPowerSupplyWatt}}~{{stat.maxPowerSupplyWatt}} <input v-model='form.minPowerSupplyWatt' type='number'/>~<input v-model='form.maxPowerSupplyWatt' type='number'/>W</p>
         <p>CPU Brand:
-            <input type='checkbox' value='INTEL' v-model="form.cpuBrandList"> Intel
-            <input type='checkbox' value='AMD' v-model="form.cpuBrandList"> AMD
+            <label v-for='c in stat.cpuBrandList'>
+                <input type='checkbox' :value='c' v-model="form.cpuBrandList"/> {{c}}
+            </label>
         </p>
         <p>CPU Model:
             <input v-model='form.cpuModelKeyword'/>

@@ -12,6 +12,7 @@ export default {
     data() {
         return {
             computers: [],
+            stat: {}
         };
     },
     mounted() {
@@ -21,6 +22,9 @@ export default {
         this.api.getComputers().then(result => {
             this.computers = result;
         });
+        this.api.getComputerStat().then(result => {
+            this.stat = result;
+        })
 
     },
     template: `
@@ -31,7 +35,7 @@ export default {
       <main>
       <section>
         <div uk-grid>
-            <ComputerFilterPanel/>
+            <ComputerFilterPanel :stat='stat'/>
             <div class='choices uk-flex uk-flex-column'>
                 <h3>{{this.computers.length}} Result(s)</h3>
                 <computer-card :query="query" :c="c" v-for="c in computers" :key="c.computerId" class="uk-width-1-1 uk-padding uk-margin-bottom">                
