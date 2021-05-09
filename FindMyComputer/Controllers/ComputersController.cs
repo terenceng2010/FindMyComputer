@@ -92,6 +92,36 @@ namespace FindMyComputer.Controllers
             //return stat;
         }
 
+        /// <summary>
+        /// add Apple M1 to the computer list (to further illustrate the front-end facet search panel)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("addapple")]
+        public async Task<int> GetAddApple()
+        {
+            var m = new Manager.ComputerManager();
+            var appleMachine = m.ReadComputer("8 GB", "1 TB SSD", "2 x USB C, 1 x Thunderbolt, 1 x HDMI", "Apple Graphics Card", "0.7 kg", "50 W PSU", "Apple M1");
+            _context.Computers.Add(appleMachine);
+            return await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// remove Apple M1 from the computer list
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("removeapple")]
+        public async Task<int> GetRemoveApple()
+        {
+
+            var appleComputers = await _context.Computers.Where(c => c.CPUBrand == "APPLE").ToListAsync();
+            foreach(var c in appleComputers)
+            {
+                _context.Computers.Remove(c);
+            }
+             
+            return await _context.SaveChangesAsync();
+        }
+
         private void FilterByConnectionNames(ComputerFacetSearchViewModel computer)
         {
             List<int> computersWithConnectors = null;
@@ -107,9 +137,9 @@ namespace FindMyComputer.Controllers
                     computersWithConnectors = computersWithConnectors.Intersect(computersWithSpecficConnectors).ToList();
                 }
             }
-            if (computersWithConnectors != null && computersWithConnectors.Count > 0)
+            if (computersWithConnectors != null)
             {
-                computer.ComputerIds = computersWithConnectors;
+               computer.ComputerIds = computersWithConnectors;
             }
         }
 
