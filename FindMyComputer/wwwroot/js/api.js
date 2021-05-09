@@ -3,18 +3,21 @@
         // setup
         this.baseUrl = baseUrl;
     }
-    async getBooks() {
-        const response  = await fetch(this.baseUrl + 'api/books')
+    async getComputersBySort(key, isDesc) {
+        const response = await fetch(this.baseUrl + 'api/Computers/sort?limit=3&isDesc=' + isDesc + '&key=' + key)
         return response.json();
     }
 
-    async getBookTop10(bookId) {
-        const response = await fetch(this.baseUrl + 'api/books/' + bookId)
-        return response.json();
-    }
-
-    async getBookSearchWord(bookId, keyword) {
-        const response = await fetch(this.baseUrl + 'api/books/' + bookId + '?query=' + keyword)
+    async getComputerByFacetSearch(facetSearchObj) {
+        const response = await
+            fetch(this.baseUrl + 'api/facetsearch', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(facetSearchObj)
+            });
         return response.json();
     }
 }

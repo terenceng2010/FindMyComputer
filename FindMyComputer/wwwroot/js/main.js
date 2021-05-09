@@ -12,7 +12,13 @@ const routes = [
     { path: '/', component: Home },
     { path: '/about', component: About },
     { path: '/recommend', component: ComputerRecommendation,
-        props: route => ({ query: route.query.q })
+        props: route => (
+            {
+                query: route.query.q,
+                title: route.query.title,
+                isDesc: route.query.isDesc
+            }
+        )
     },
 ]
 
