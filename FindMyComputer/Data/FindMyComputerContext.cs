@@ -15,10 +15,12 @@ namespace FindMyComputer.Data
         }
 
         public DbSet<FindMyComputer.Models.Computer> Computers { get; set; }
+        public DbSet<FindMyComputer.Models.Connector> Connectors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Computer>().ToTable("Computer");
+            modelBuilder.Entity<Connector>().ToTable("Connector");
         }
     }
 }

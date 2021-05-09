@@ -16,7 +16,7 @@ namespace FindMyComputer.Models
     [Index(nameof(CPUBrand))]
     public class Computer
     {
-        public int ID { get; set; }
+        public int ComputerId { get; set; }
 
         /// <summary>
         /// Ram in MB
@@ -47,11 +47,7 @@ namespace FindMyComputer.Models
 
         public List<Connector> Connectors { get; set; }
         public int ConnectorCount { get; set; }
-        //public int ConnectorCount {
-        //    get {
-        //        if (Connectors == null)
-        //        { return 0; } else { return Connectors.Count; }
-        //    }
-        //}
+
+
     }
 }
