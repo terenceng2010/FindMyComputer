@@ -2,6 +2,7 @@
 // These can be imported from other files
 import Home from './components/Home.js'
 import ComputerRecommendation from './components/ComputerRecommendation.js'
+import ComputerList from './components/ComputerList.js'
 const About = { template: '<div><router-link to="/">Start Over</router-link></div>' }
 
 
@@ -11,6 +12,7 @@ const About = { template: '<div><router-link to="/">Start Over</router-link></di
 const routes = [
     { path: '/', component: Home },
     { path: '/about', component: About },
+    { path: '/list', component: ComputerList },
     { path: '/recommend', component: ComputerRecommendation,
         props: route => (
             {

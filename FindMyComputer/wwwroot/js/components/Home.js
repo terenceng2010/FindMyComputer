@@ -14,7 +14,7 @@ export default {
     template: `
     <div>
       <p>
-        <router-link to="/about">Show me all the computers</router-link>
+        <router-link to="/list">Show me all the computers</router-link>
       </p>
       <main>
       <section>

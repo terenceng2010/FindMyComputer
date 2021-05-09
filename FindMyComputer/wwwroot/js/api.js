@@ -3,6 +3,12 @@
         // setup
         this.baseUrl = baseUrl;
     }
+
+    async getComputers() {
+        const response = await fetch(this.baseUrl + 'api/Computers')
+        return response.json();
+    }
+
     async getComputersBySort(key, isDesc) {
         const response = await fetch(this.baseUrl + 'api/Computers/sort?limit=3&isDesc=' + isDesc + '&key=' + key)
         return response.json();
