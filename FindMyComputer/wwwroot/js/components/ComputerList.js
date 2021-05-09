@@ -1,11 +1,13 @@
 ﻿import Config from "../config.js";
 import Api from "../api.js";
 import ComputerCard from './ComputerCard.js';
+import ComputerFilterPanel from './ComputerFilterPanel.js';
 
 export default {
     name: 'ComputerList',
     components: {
-        ComputerCard
+        ComputerCard,
+        ComputerFilterPanel
     },
     data() {
         return {
@@ -28,10 +30,12 @@ export default {
       </p>
       <main>
       <section>
-        <div  class='choices uk-flex uk-flex-column'>
-            <div  class='choices uk-flex uk-flex-column'>
+        <div uk-grid>
+            <ComputerFilterPanel/>
+            <div class='choices uk-flex uk-flex-column'>
+                <h3>{{this.computers.length}} Result(s)</h3>
                 <computer-card :query="query" :c="c" v-for="c in computers" :key="c.computerId" class="uk-width-1-1 uk-padding uk-margin-bottom">                
-                </computer-card> 
+                </computer-card>             
             </div>
         </div>
       </section>    

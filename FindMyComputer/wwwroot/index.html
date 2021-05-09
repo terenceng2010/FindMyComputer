@@ -17,7 +17,7 @@
 <body>
     <div id="app">
         <div class="uk-section">
-            <div class="uk-container">
+            <div class="uk-container uk-container-expand">
                 <router-view v-slot="{ Component }">
                     <transition name="fade"  mode="out-in">
                         <component :is="Component" />

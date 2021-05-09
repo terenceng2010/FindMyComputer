@@ -65,7 +65,7 @@ namespace FindMyComputer.Controllers
         private void FilterByConnectionNames(ComputerFacetSearchViewModel computer)
         {
             List<int> computersWithConnectors = null;
-            if (computer.ConnectorNames != null)
+            if (computer.ConnectorNames != null && computer.ConnectorNames.Count > 0)
             {
                 foreach(string connectorName in computer.ConnectorNames)
                 {
@@ -237,7 +237,7 @@ namespace FindMyComputer.Controllers
 
         private static IQueryable<Computer> FilterByCPUBrand(IQueryable<Computer> computers, ComputerFacetSearchViewModel vm)
         {
-            if (vm.CPUBrandList != null)
+            if (vm.CPUBrandList != null && vm.CPUBrandList.Count > 0)
             {
                 computers = computers.Where(c => vm.CPUBrandList.Contains(c.CPUBrand));
             }
@@ -246,7 +246,7 @@ namespace FindMyComputer.Controllers
         }
         private static IQueryable<Computer> FilterByHarddiskType(IQueryable<Computer> computers, ComputerFacetSearchViewModel vm)
         {
-            if (vm.HarddiskTypes != null)
+            if (vm.HarddiskTypes != null && vm.HarddiskTypes.Count > 0)
             {
                 computers = computers.Where(c => vm.HarddiskTypes.Contains(c.HarddiskType));
             }

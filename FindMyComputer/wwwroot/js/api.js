@@ -16,7 +16,7 @@
 
     async getComputerByFacetSearch(facetSearchObj) {
         const response = await
-            fetch(this.baseUrl + 'api/facetsearch', {
+            fetch(this.baseUrl + 'api/Computers/facetsearch', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
