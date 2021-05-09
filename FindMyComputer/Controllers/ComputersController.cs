@@ -62,6 +62,36 @@ namespace FindMyComputer.Controllers
             return computers;
         }
 
+        [HttpGet("stat")]
+        public async Task<ActionResult<ComputerStatViewModel>> GetStatComputers()
+        {
+            string sqlStr = @"SELECT 
+                  Max([Ram]) MaxRam,
+	              Min([Ram]) MinRam,
+	              Max([HarddiskSize]) MaxHarddiskSize,
+	              Min([HarddiskSize]) MinHarddiskSize,
+	              Max([TowerWeight]) MaxTowerWeight,
+	              Min([TowerWeight]) MinTowerWeight,
+	              Max([PowerSupplyWatt]) MaxPowerSupplyWatt,
+	              Min([PowerSupplyWatt]) MinPowerSupplyWatt
+              FROM [dbo].[Computer]";
+            var q = _context.ComputerStat
+                .FromSqlRaw(sqlStr);
+
+            var stat =  await q.FirstOrDefaultAsync();
+
+            stat.HarddiskTypes = await _context.Computers.Select(c => c.HarddiskType).Distinct().ToListAsync();
+            stat.CPUBrandList = await _context.Computers.Select(c => c.CPUBrand).Distinct().ToListAsync();
+            stat.ConnectorNames = await _context.Connectors.Select(c => c.Name).Distinct().ToListAsync();
+
+            return stat;
+
+            //var stat = new ComputerStatViewModel();
+            //stat.MinRam = _context.Computers.Min(c => c.Ram);
+            //stat.MaxRam = _context.Computers.Max(c => c.Ram);
+            //return stat;
+        }
+
         private void FilterByConnectionNames(ComputerFacetSearchViewModel computer)
         {
             List<int> computersWithConnectors = null;
